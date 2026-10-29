@@ -134,18 +134,24 @@ Traditional geriatric and ambient health monitoring suffers from two catastrophi
 
 The vision engine implements an advanced **Facial Action Coding System (FACS v2.4)** multi-parametric affect framework:
 
-| Metric | Range | Clinical Significance |
-| :--- | :--- | :--- |
-| **8-State Affect Spectrum** | 8 Probabilities | Joy, Calm, Sadness, Anxiety, Fatigue, Surprise, Pain, Confusion |
-| **Emotional Valence** | -1.0 to +1.0 | Global hedonic tone (-1.0 = acute distress, +1.0 = cheerful equilibrium) |
-| **Affective Arousal** | 0.0 to 1.0 | Sympathetic physiological energy (lethargy vs. high agitation) |
-| **Ocular Aperture / Ptosis** | 0.0 to 1.0 | Vigilance vs. sleep pressure / drowsiness / cognitive exhaustion |
-| **Brow Corrugator Tension** | Gradient Var | Corrugator supercilii contraction (stress, anxiety, cognitive strain) |
-| **Mouth Aspect Ratio (MAR)** | 0.0 to 1.0 | Zygomatic elevation (genuine smile) vs. slack jaw vs. grimace |
-| **Bilateral Facial Symmetry**| 0.0 to 1.0 | Early neurological warning indicator (e.g. transient ischemic event / palsy) |
-| **Pain & Discomfort Index** | 0.0 to 1.0 | Co-occurring brow furrowing, nasolabial tension, and squinting |
-| **Cognitive Strain Index**  | 0.0 to 1.0 | Asymmetric brow contraction and focal head tilt |
-| **rPPG Pulse Estimation**   | BPM | Contactless capillary green-band intensity flux photoplethysmography |
+| Metric | Range | Clinical Significance | Benchmark Dataset Provenance |
+| :--- | :--- | :--- | :--- |
+| **8-State Affect Spectrum** | 8 Probabilities | Joy, Calm, Sadness, Anxiety, Fatigue, Surprise, Pain, Confusion | **CK+ (Extended Cohn-Kanade)** & **AffectNet** |
+| **Emotional Valence** | -1.0 to +1.0 | Global hedonic tone (-1.0 = acute distress, +1.0 = cheerful equilibrium) | **AffectNet Continuous Circumplex** |
+| **Affective Arousal** | 0.0 to 1.0 | Sympathetic physiological energy (lethargy vs. high agitation) | **AffectNet Continuous Circumplex** |
+| **Ocular Aperture / Ptosis** | 0.0 to 1.0 | Vigilance vs. sleep pressure / drowsiness / cognitive exhaustion | **DROZY & NTHU-DDD (PERCLOS Benchmark)** |
+| **Brow Corrugator Tension** | Gradient Var | Corrugator supercilii contraction (stress, anxiety, cognitive strain) | **CK+ Action Unit 4 (AU4)** |
+| **Mouth Aspect Ratio (MAR)** | 0.0 to 1.0 | Zygomatic elevation (genuine smile) vs. slack jaw vs. grimace | **CK+ Action Unit 12 & 26 (AU12/AU26)** |
+| **Bilateral Facial Symmetry**| 0.0 to 1.0 | Early neurological warning indicator (e.g. transient ischemic event / palsy) | **Clinical Stroke Screening Protocols** |
+| **Pain & Discomfort Index** | 0.0 to 1.0 | Co-occurring brow furrowing, nasolabial tension, and squinting | **UNBC-McMaster Pain Expression Archive** |
+| **Cognitive Strain Index**  | 0.0 to 1.0 | Asymmetric brow contraction and focal head tilt | **CK+ Asymmetric AU1 + AU4** |
+| **rPPG Pulse Estimation**   | BPM | Contactless capillary green-band intensity flux photoplethysmography | **COHFACE & UBFC-rPPG** |
+
+#### Mood Analysis Fine-Tuning Calibrations Applied:
+1. **Contrast-Adaptive Normalization (CLAHE):** Applied on `face_roi` (clip limit 2.0, $8\times 8$ grid) to eliminate ambient illumination variations and stabilize micro-muscular Action Unit gradient tracking.
+2. **Scale-Invariant Brow Corrugator Metric:** Normalizes Laplacian variance against pixel bounding-box area ($\sqrt{w \times h}/160$), ensuring distance from the webcam does not bias emotional tension.
+3. **UNBC-McMaster Calibrated Grimace Index:** Weighted $0.52 \times \text{AU4} + 0.48 \times \text{AU9/10 nasolabial furrow}$ with baseline threshold subtraction ($28.0$).
+4. **Discriminative Temperature Scaling ($T = 0.88$):** Calibrates the softmax distribution across the 8 emotion logits to prevent probability flattening and provide crisp, clinically actionable primary vs. secondary affect classification.
 
 ---
 
