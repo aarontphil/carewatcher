@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareWatcher — Ambient Healthcare with Absolute Local Privacy</title>
+  <meta name="description" content="Continuous biometric intelligence, contactless vision affect, and conversational cognition for Aaron — verified on-device with zero cloud exposure.">
+  
+  <!-- Google Fonts: EB Garamond, Figtree, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+  <!-- ── 1. Floating Navigation Pill ── -->
+  <header class="nav-pill-wrapper">
+    <nav class="floating-nav" aria-label="Main Navigation">
+      <div class="brand-mark">
+        <div class="brand-glyph" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <span>CareWatcher</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#cognition" class="nav-link">Intelligence</a>
+        <a href="#vitals" class="nav-link">Biological Vitals</a>
+        <a href="#privacy" class="nav-link">Zero-Cloud Shield</a>
+        <a href="#comparison" class="nav-link">Architecture</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="/dashboard" class="btn-cta-primary" id="navCtaBtn">
+          <span>Launch Companion</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="landing-wrap">
+
+    <!-- ── 2. Hero Section (Cream Broadsheet) ── -->
+    <section class="hero-section" aria-labelledby="heroHeadline">
+      <div class="eyebrow-pill">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        <span>100% Local Edge Healthcare · Resident: Aaron</span>
+      </div>
+
+      <!-- Two-Tone Display Headline: Fog Gray -> Vast Ink -->
+      <h1 class="hero-display-headline" id="heroHeadline">
+        <span class="headline-dim">Ambient healthcare with</span><br>
+        <span class="headline-ink">
+          <span class="headline-accent-wrap">
+            absolute local privacy.
+            <!-- Hand-drawn lavender SVG squiggle underline -->
+            <svg class="squiggle-svg" viewBox="0 0 320 20" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <path d="M4 14C50 4 100 18 150 10C200 4 260 16 316 8" stroke="#f0d7ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </span>
+      </h1>
+
+      <p class="hero-sub">
+        Continuous biometric intelligence, contactless vision affect, and conversational cognition for Aaron — verified on-device with zero cloud exposure.
+      </p>
+
+      <!-- Waveform Visualizer Pill -->
+      <div class="waveform-pill" aria-label="Real-time acoustic audio sensor ready">
+        <div class="waveform-bars" aria-hidden="true">
+          <span class="waveform-bar"></span>
+          <span class="waveform-bar"></span>
+          <span class="waveform-bar"></span>
+          <span class="waveform-bar"></span>
+          <span class="waveform-bar"></span>
+          <span class="waveform-bar"></span>
+          <span class="waveform-bar"></span>
+        </div>
+        <span class="waveform-label">Ambient Audio & Shutter Boundary Armed</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="/dashboard" class="btn-cta-primary" style="padding: 16px 32px; font-size: 16px;">
+          <span>Launch Live Ambient Companion</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#cognition" class="btn-outlined-cream" style="padding: 16px 28px; font-size: 16px;">
+          <span>Explore Cognitive Engine</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── 3. Dark Velvet Feature Chamber (Section 1) ── -->
+    <section class="dark-chamber" id="cognition" aria-labelledby="chamber1Heading">
+      <div class="feature-chamber-grid">
+        <div class="chamber-copy">
+          <h2 class="chamber-heading" id="chamber1Heading">
+            A companion that listens, notices, and acts.
+          </h2>
+          <p class="chamber-sub">
+            Streaming biological vitals from Apple Watch, real-time facial affect through contactless vision, and conversational reasoning with local STT and Gemini intelligence.
+          </p>
+
+          <!-- Platform Selector Row -->
+          <div class="platform-pill-row" role="tablist">
+            <button class="platform-pill active" onclick="switchMockup('watch')">
+              <span>⌚ Apple Watch (034A7)</span>
+            </button>
+            <button class="platform-pill" onclick="switchMockup('vision')">
+              <span>📹 Contactless Vision</span>
+            </button>
+            <button class="platform-pill" onclick="switchMockup('voice')">
+              <span>🎙️ Whisper Local Mic</span>
+            </button>
+            <button class="platform-pill" onclick="switchMockup('shutter')">
+              <span>🔒 Physical Shutter</span>
+            </button>
+          </div>
+
+          <a href="/dashboard" class="btn-chamber-light">
+            <span>Enter Live Companion Chamber</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Flat Phone Mockup (Illustration) -->
+        <div class="phone-mockup" aria-label="CareWatcher Live Dialogue Demonstration">
+          <div class="mockup-top-bar">
+            <span>RESIDENT DIALOGUE · AARON</span>
+            <span style="color: var(--color-ember-glow); font-family: var(--font-mono); font-weight: 600;">● LIVE EDGE</span>
+          </div>
+
+          <div class="mockup-vitals-card">
+            <div>
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-fog);">Heart Rate (Apple Watch)</div>
+              <div class="vitals-stat-big" id="mockupBpm">74 <span style="font-size: 14px; color: var(--color-vast-ink);">bpm</span></div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-fog);">Affect State</div>
+              <span class="badge-teal-status" style="font-size: 11px; padding: 4px 10px;">Calm Equilibrium</span>
+            </div>
+          </div>
+
+          <div class="mockup-chat-body" id="mockupChat">
+            <div class="chat-bubble-cream">
+              Good morning Aaron. Your resting cardiac rhythm is a steady 74 BPM and your brow tension is low. Shall we log your morning Amlodipine?
+            </div>
+            <div class="chat-bubble-user">
+              Yes, please. I just took it with breakfast.
+            </div>
+            <div class="chat-bubble-cream">
+              Logged to your local tamper-evident memory store at 8:15 AM. You have achieved 100% medication adherence this week!
+            </div>
+          </div>
+
+          <!-- Bottom Waveform In Mockup -->
+          <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.4); border-radius: 14px; padding: 10px 14px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-forest-ink);"></span>
+              <span style="font-size: 12px; color: var(--color-lumen-cream); font-weight: 500;">Continuous Dialogue Active</span>
+            </div>
+            <div class="waveform-bars" style="height: 16px;">
+              <span class="waveform-bar" style="background: var(--color-lavender-whisper);"></span>
+              <span class="waveform-bar" style="background: var(--color-lavender-whisper);"></span>
+              <span class="waveform-bar" style="background: var(--color-lavender-whisper);"></span>
+              <span class="waveform-bar" style="background: var(--color-lavender-whisper);"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. Comparison Card Pair (Section 2) ── -->
+    <section class="comparison-section" id="comparison" aria-labelledby="compHeading">
+      <div class="section-editorial-header">
+        <h2 class="section-editorial-title" id="compHeading">
+          Zero cloud exposure. Certified on-device.
+        </h2>
+        <p class="section-editorial-sub">
+          The difference between traditional telemetry and ambient flow is where your private bodily signals are processed.
+        </p>
+      </div>
+
+      <div class="comparison-grid">
+        <!-- Left: Standard Cream Card -->
+        <article class="content-card-cream">
+          <div>
+            <div class="card-top">
+              <h3 class="card-title-lg">Traditional Cloud Telehealth</h3>
+              <span style="font-size: 12px; font-weight: 600; color: var(--color-fog); border: 1.5px solid var(--color-fog); border-radius: 9999px; padding: 4px 12px;">Cloud-Exposed</span>
+            </div>
+            <div class="stat-giant">1,850 ms</div>
+            <p class="card-desc">
+              Continuous biometric audio and raw video streamed to commercial cloud servers. Vulnerable to network latency spikes, data center breaches, and permanent surveillance storage.
+            </p>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 12px; color: var(--color-charcoal); border-top: 1px solid var(--color-lumen-stone); padding-top: 14px;">
+            ✕ Third-party cloud processing · ✕ Data retention risk
+          </div>
+        </article>
+
+        <!-- Right: Inset Dark Card -->
+        <article class="content-card-dark">
+          <div>
+            <div class="card-top">
+              <h3 class="card-title-lg" style="color: var(--color-lumen-cream);">CareWatcher Ambient Flow</h3>
+              <span class="badge-teal-status">Zero-Cloud Shield</span>
+            </div>
+            <div class="stat-giant" style="color: var(--color-lavender-whisper);">< 15 ms</div>
+            <p class="card-desc">
+              100% on-device biometric extraction. Physical privacy shutter gates sensors at the hardware root boundary. SHA-256 cryptographic audit chain verifies zero off-device leaks.
+            </p>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 12px; color: var(--color-lumen-stone); border-top: 1px solid rgba(255,255,255,0.15); padding-top: 14px;">
+            ✓ 100% Local edge execution · ✓ Physical hardware gating
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── 5. Interactive 3-Pillar Clinical Feature Grid ── -->
+    <section class="pillars-section" id="vitals" aria-labelledby="pillarsHeading">
+      <div class="section-editorial-header" style="margin-bottom: 36px;">
+        <h2 class="section-editorial-title" id="pillarsHeading">
+          Three layers of ambient clinical intelligence.
+        </h2>
+        <p class="section-editorial-sub">
+          Holistic wellness monitoring engineered for Aaron without intrusive wearable cords or cameras.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <!-- Pillar 1: Biological Vitals -->
+        <article class="pillar-card">
+          <span class="badge-teal-status">HypeRate Phoenix Live</span>
+          <h3 class="pillar-heading">Continuous cardiac intelligence without cords.</h3>
+          <p class="pillar-desc">
+            Direct WebSocket pairing with Apple Watch (Channel 034A7). Live sub-30ms beat-to-beat cardiac intervals, automated resting baseline drift alerting, and SpO2 tracking.
+          </p>
+
+          <div class="pillar-widget">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; text-transform: uppercase;">
+              <span>Rhythm Strip</span>
+              <span style="color: var(--color-forest-ink); font-family: var(--font-mono);">74 BPM · Regular</span>
+            </div>
+            <canvas id="cardiacPreviewCanvas" width="280" height="48" class="live-cardiac-canvas-preview"></canvas>
+          </div>
+        </article>
+
+        <!-- Pillar 2: Contactless Facial Affect -->
+        <article class="pillar-card">
+          <span class="badge-teal-status">FACS v2.4 8-State Spectrum</span>
+          <h3 class="pillar-heading">Noticing subtle strain, pain, or fatigue.</h3>
+          <p class="pillar-desc">
+            On-device facial action coding extracts 10 clinical parameters: corrugator brow furrowing, ocular ptosis/drowsiness, and nasolabial grimacing to catch distress early.
+          </p>
+
+          <div class="pillar-widget" style="gap: 6px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600;">
+              <span>Affective Valence: +0.75</span>
+              <span>Vigilance: 88%</span>
+            </div>
+            <div style="width: 100%; height: 6px; background: rgba(0,0,0,0.1); border-radius: 9999px; overflow: hidden;">
+              <div style="width: 78%; height: 100%; background: var(--color-forest-ink); border-radius: 9999px;"></div>
+            </div>
+            <div style="font-size: 11px; color: var(--color-charcoal); font-family: var(--font-mono); margin-top: 4px;">
+              Primary: JOYFUL · Secondary: Calm
+            </div>
+          </div>
+        </article>
+
+        <!-- Pillar 3: Conversational Cognition -->
+        <article class="pillar-card">
+          <span class="badge-teal-status">Edge STT + Gemini Reasoning</span>
+          <h3 class="pillar-heading">Empathetic companion with clinical memory.</h3>
+          <p class="pillar-desc">
+            Hands-free continuous dialogue using local Whisper voice transcription. Remembers daily wellness habits, queries medication adherence, and offers grounded health support.
+          </p>
+
+          <div class="pillar-widget">
+            <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--color-charcoal);">
+              Resident Contextual Ledger
+            </div>
+            <div style="font-size: 13px; font-family: var(--font-figtree); color: var(--color-vast-ink); line-height: 1.4;">
+              "Morning check-in completed. Blood pressure table confirmed. High mood engagement observed."
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── 6. Dark Velvet Security Chamber (Section 4) ── -->
+    <section class="security-chamber" id="privacy" aria-labelledby="privacyHeading">
+      <div class="eyebrow-pill" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);">
+        <span class="eyebrow-dot" style="background: var(--color-forest-ink);"></span>
+        <span>Hardware Root Boundary Guarantee</span>
+      </div>
+
+      <h2 class="security-chamber-heading" id="privacyHeading">
+        Absolute privacy. Verified by hardware, not corporate promises.
+      </h2>
+      <p class="security-chamber-sub">
+        When the physical shutter is toggled closed, camera and microphone hardware are released at the operating system root boundary. Zero audio or video frames leave your room.
+      </p>
+
+      <!-- Works Everywhere Integration Parade -->
+      <div class="integration-parade" aria-label="Supported local integrations">
+        <div class="integration-chip">
+          <span>⌚ Apple Watch</span>
+        </div>
+        <div class="integration-chip">
+          <span>⚡ Phoenix WebSockets</span>
+        </div>
+        <div class="integration-chip">
+          <span>📹 OpenCV FACS v2.4</span>
+        </div>
+        <div class="integration-chip">
+          <span>🎙️ OpenAI Whisper Edge</span>
+        </div>
+        <div class="integration-chip">
+          <span>✨ Gemini 3.5 Flash</span>
+        </div>
+        <div class="integration-chip">
+          <span>🔐 SHA-256 Audit Chain</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <a href="/dashboard" class="btn-chamber-light">
+          <span>Launch Secure Companion</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── 7. Editorial CTA Band ── -->
+    <section class="editorial-cta-band" aria-labelledby="editorialCtaTitle">
+      <h2 class="editorial-cta-title" id="editorialCtaTitle">
+        Experience ambient healthcare that respects your home.
+      </h2>
+      <p style="font-size: 18px; color: var(--color-charcoal); max-width: 600px; line-height: 1.4;">
+        Start live continuous monitoring for Aaron right now on your local machine with instant biometric telemetry.
+      </p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+        <a href="/dashboard" class="btn-cta-primary" style="padding: 16px 36px; font-size: 16px;">
+          <span>Launch CareWatcher Companion</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── 8. Full-Width Dark Band Footer ── -->
+  <footer class="dark-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="brand-mark" style="color: var(--color-lumen-cream);">
+            <div class="brand-glyph" style="background: var(--color-forest-ink); color: var(--color-lumen-cream); border: 2px solid var(--color-lumen-cream);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <span>CareWatcher</span>
+          </div>
+          <p style="font-size: 14px; color: var(--color-fog); line-height: 1.45;">
+            Privacy-preserving ambient healthcare companion. Built on Wispr Flow editorial architecture with cream broadsheets and dark velvet chambers.
+          </p>
+          <div class="footer-status-tag">
+            <span class="footer-dot"></span>
+            <span>SYSTEM ARMED · MONITORING FOR AARON</span>
+          </div>
+        </div>
+
+        <div class="footer-links-grid">
+          <div class="footer-col">
+            <span class="footer-col-title">Companion</span>
+            <a href="/dashboard" class="footer-link">Live Dashboard</a>
+            <a href="/dashboard" class="footer-link">HypeRate Live Stream</a>
+            <a href="/dashboard" class="footer-link">FACS Facial Vision</a>
+            <a href="/dashboard" class="footer-link">Continuous Mic Dialogue</a>
+          </div>
+
+          <div class="footer-col">
+            <span class="footer-col-title">Security</span>
+            <a href="#privacy" class="footer-link">Zero-Cloud Shield</a>
+            <a href="#privacy" class="footer-link">Hardware Shutter</a>
+            <a href="/dashboard" class="footer-link">SHA-256 Audit Trail</a>
+            <a href="/dashboard" class="footer-link">Local SQLite Ledger</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 CareWatcher. All processing executed 100% on-device on Aaron's local machine.</span>
+        <span>Wispr Flow Editorial Architecture · 2px Ink Borders</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Interactive Script for Landing Page (ECG Canvas, Mockup Switcher) ── -->
+  <script>
+    // 1. Interactive Cardiac Rhythm Canvas Preview
+    const canvas = document.getElementById("cardiacPreviewCanvas");
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      let offset = 0;
+      function drawCardiac() {
+        ctx.fillStyle = "#e4e4d0";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.strokeStyle = "#034f46";
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        
+        const w = canvas.width;
+        const h = canvas.height;
+        const midY = h / 2;
+        
+        for (let x = 0; x < w; x++) {
+          const t = (x + offset) % 180;
+          let y = midY;
+          if (t > 70 && t < 78) {
+            y = midY - 6; // P wave
+          } else if (t >= 78 && t < 84) {
+            y = midY + 4; // Q wave
+          } else if (t >= 84 && t < 92) {
+            y = midY - 20; // R peak
+          } else if (t >= 92 && t < 98) {
+            y = midY + 8; // S wave
+          } else if (t >= 98 && t < 120) {
+            y = midY - 8; // T wave
+          }
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        offset = (offset + 2) % 180;
+        requestAnimationFrame(drawCardiac);
+      }
+      drawCardiac();
+    }
+
+    // 2. Platform Mockup Tab Switcher
+    function switchMockup(tab) {
+      const pills = document.querySelectorAll('.platform-pill');
+      pills.forEach(p => p.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const chat = document.getElementById("mockupChat");
+      const bpm = document.getElementById("mockupBpm");
+      if (!chat) return;
+
+      if (tab === 'watch') {
+        if (bpm) bpm.innerHTML = '74 <span style="font-size: 14px; color: var(--color-vast-ink);">bpm</span>';
+        chat.innerHTML = `
+          <div class="chat-bubble-cream">Good morning Aaron. Your resting cardiac rhythm is a steady 74 BPM and your brow tension is low. Shall we log your morning Amlodipine?</div>
+          <div class="chat-bubble-user">Yes, please. I just took it with breakfast.</div>
+          <div class="chat-bubble-cream">Logged to your local tamper-evident memory store at 8:15 AM. You have achieved 100% medication adherence this week!</div>
+        `;
+      } else if (tab === 'vision') {
+        if (bpm) bpm.innerHTML = '92% <span style="font-size: 14px; color: var(--color-vast-ink);">valence</span>';
+        chat.innerHTML = `
+          <div class="chat-bubble-cream">Resident Aaron detected. FACS v2.4 affect scan: Smile score 84%, corrugator brow tension low (relaxed), ocular aperture 85% (alert).</div>
+          <div class="chat-bubble-user">I'm feeling very refreshed after my morning walk.</div>
+          <div class="chat-bubble-cream">Delighted to hear that, Aaron! Your positive affect trend has been stable for 4 consecutive hours.</div>
+        `;
+      } else if (tab === 'voice') {
+        if (bpm) bpm.innerHTML = '0 <span style="font-size: 14px; color: var(--color-vast-ink);">cloud ms</span>';
+        chat.innerHTML = `
+          <div class="chat-bubble-cream">Local Whisper model listening continuously. Hands-free speech recognition active with zero external audio transmission.</div>
+          <div class="chat-bubble-user">CareWatcher, what is my schedule for today?</div>
+          <div class="chat-bubble-cream">At 2:30 PM you have a garden walk scheduled, followed by your afternoon hydration reminder.</div>
+        `;
+      } else if (tab === 'shutter') {
+        if (bpm) bpm.innerHTML = 'GATED <span style="font-size: 14px; color: var(--color-vast-ink);">root</span>';
+        chat.innerHTML = `
+          <div class="chat-bubble-cream" style="border-color: var(--color-ember-glow);">🔒 Physical Privacy Shutter engaged. Camera sensor powered down at hardware root boundary. Zero frames captured.</div>
+          <div class="chat-bubble-user">Safe to rest now.</div>
+          <div class="chat-bubble-cream">Shutter state confirmed CLOSED. Your privacy boundary is fully locked on-device.</div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

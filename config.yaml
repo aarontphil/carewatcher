@@ -1,0 +1,69 @@
+# ──────────────────────────────────────────────────────────────────
+# CareWatcher Configuration
+# Change model names, thresholds, and schedules here — no code edits needed.
+# ──────────────────────────────────────────────────────────────────
+
+privacy:
+  shutter_default: closed          # "open" | "closed"
+
+stt:
+  engine: whisper                  # whisper (only supported engine for now)
+  model_size: base                 # tiny | base | small | medium | large
+  language: en
+  device: cpu                      # cpu | cuda
+
+wake_word:
+  keyword: "hey care"              # trigger phrase (case-insensitive match)
+  threshold: 0.6                   # confidence threshold (reserved for future use)
+
+llm:
+  backend: gemini                  # gemini | ollama | llama_cpp
+  model_name: gemini-3.5-flash     # gemini-3.5-flash | gemini-3.5-flash-lite
+  model_path: models/mistral-7b-instruct.Q4_K_M.gguf
+  api_key: ""                      # loaded from .env or data/gemini_config.json
+  context_length: 2048
+  temperature: 0.7
+  max_tokens: 512
+
+tts:
+  engine: piper                    # piper (only supported engine for now)
+  voice: en_US-lessac-medium       # Piper voice identifier
+  sample_rate: 22050
+
+sources:
+  audio:
+    driver: mic                    # mic | simulator  (changed to real mic)
+    simulator_script: null         # path to scripted WAV file (optional)
+  sensor:
+    driver: serial                 # serial | webcam | simulator
+    serial_port: COM3              # ESP32 serial port (Windows)
+    serial_baud: 115200            # must match ESP32 firmware
+    simulator_data: null           # path to synthetic sensor CSV (optional)
+
+resident:
+  name: Aaron
+  medication_schedule:
+    - time: "08:00"
+      medication: "Amlodipine 5 mg"
+    - time: "21:00"
+      medication: "Metformin 500 mg"
+
+trend:
+  window_days: 7                   # rolling baseline window
+  sleep_drift_hours: 2.0           # hours below baseline to trigger alert
+  inactivity_timeout_minutes: 90   # minutes of no movement before welfare check
+  mood_drift_consecutive: 3        # consecutive negative mood shifts to trigger
+  bpm_drift_threshold: 20.0        # BPM deviation from baseline to alert
+  spo2_low_threshold: 92.0         # SpO2 % below which alert fires
+  temp_drift_threshold: 1.5        # °C deviation from baseline to alert
+
+verifier:
+  max_reminders_per_hour: 3
+  quiet_hours:
+    start: "22:00"
+    end: "07:00"
+  deny_list_path: data/deny_list.txt
+
+audit:
+  log_path: data/audit.jsonl
+  hash_algorithm: sha256

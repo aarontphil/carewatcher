@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareWatcher — Ambient Healthcare Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Broadsheet Editorial Hero Header -->
+    <div class="editorial-hero">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <a href="/" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--color-vast-ink); text-decoration: none; padding: 6px 14px; background: var(--color-lumen-stone); border: 2px solid var(--color-vast-ink); border-radius: 9999px;">
+            ← Product Overview
+          </a>
+          <!-- Page View Navigation Tabs (Button Transition) -->
+          <div class="view-switcher-pill" id="viewSwitcherPill">
+            <button class="view-tab-btn active" id="tabCompanion" onclick="switchToView('companion')">
+              <span>🩺 Companion Dashboard</span>
+            </button>
+            <button class="view-tab-btn" id="tabAudit" onclick="switchToView('audit')">
+              <span>📜 Mood & Audit Ledger</span>
+              <span class="tab-badge-arrow">Next Page →</span>
+            </button>
+          </div>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-family: var(--font-mono); color: var(--color-forest-ink); font-weight: 600;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-forest-ink);"></span>
+          LIVE COMPANION · AARON
+        </div>
+      </div>
+      <h1 class="display-headline">
+        Ambient healthcare with <span class="headline-accent">absolute local privacy.</span>
+      </h1>
+      <p class="display-sub">
+        Continuous biometric intelligence, contactless vision affect, and conversational cognition for Aaron — verified on-device with zero cloud exposure.
+      </p>
+    </div>
+
+    <!-- Main Grid Dashboard (Alternating Broadsheet Cream & Dark Velvet Chambers) -->
+    <main class="dashboard-grid dash-view active" id="viewCompanion">
+
+      <!-- Column 1: Live Audio & Video Monitoring (Cream Broadsheet Card) -->
+      <section class="dash-col col-primary">
+
+        <!-- Live Video & Facial Mood Sensing Card -->
+        <div class="glass-card monitor-card">
+          <div class="card-header">
+            <div class="card-title" style="font-size: 22px; white-space: nowrap; gap: 8px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+              Live Vision
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+              <button id="shutterToggleBtn" class="shutter-btn closed" onclick="toggleShutter()" style="padding: 5px 10px; font-size: 11px; border-radius: 12px; gap: 5px; white-space: nowrap;">
+                <span class="pill-dot" id="shutterDot"></span>
+                <span id="shutterBtnLabel">Shutter: Closed</span>
+              </button>
+              <button class="cam-toggle-btn" id="camToggleBtn" onclick="toggleWebcam()" style="padding: 5px 10px; font-size: 11px; border-radius: 12px; gap: 5px; white-space: nowrap;">
+                <span id="camBtnLabel">📹 Camera</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="video-container" id="videoBox">
+            <video id="liveVideo" autoplay playsinline muted></video>
+            <canvas id="faceOverlay"></canvas>
+
+            <!-- Physical Shutter Curtain Overlay -->
+            <div class="shutter-curtain" id="shutterCurtain">
+              <div class="curtain-content">
+                <div class="curtain-icon">🔒</div>
+                <div class="curtain-title">Privacy Shutter Closed</div>
+                <div class="curtain-sub">Camera sensor is hardware-gated. Zero frames are captured or processed.</div>
+                <button class="curtain-btn" onclick="toggleShutter()">Click to Open Privacy Shutter</button>
+              </div>
+            </div>
+
+            <!-- Face Detection Overlay Tag -->
+            <div class="video-hud" id="videoHud">
+              <div class="hud-item"><span class="hud-label">Presence:</span> <strong id="hudPresence">Standby</strong></div>
+              <div class="hud-item"><span class="hud-label">Face Expression:</span> <strong id="hudExpression">Neutral / Attentive</strong></div>
+              <div class="hud-item"><span class="hud-label">Ambient Illumination:</span> <strong id="hudLux">Daylight (Normal)</strong></div>
+            </div>
+          </div>
+
+          <!-- Vision Affect Hero Ribbon (Primary Emotion + Secondary Tone) -->
+          <div class="vision-hero-ribbon">
+            <div class="emotion-hero-pill" id="primaryEmotionPill">
+              <span class="emotion-hero-icon" id="primaryEmotionIcon">😐</span>
+              <div class="emotion-hero-details">
+                <span class="emotion-hero-label" id="primaryEmotionLabel">CALM EQUILIBRIUM</span>
+                <span class="emotion-hero-sub" id="secondaryEmotionSub">Secondary: Baseline Neutral</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8-Emotion Live Probability Spectrum Grid -->
+          <div class="emotion-spectrum-box">
+            <div class="spectrum-header">
+              <span class="spectrum-title">8-Emotion Affective Spectrum (FACS v2.4)</span>
+              <span class="spectrum-active-tag" id="spectrumActiveTag">Balanced Equilibrium</span>
+            </div>
+            <div class="emotion-spectrum-grid" id="emotionSpectrumGrid">
+              <div class="spectrum-item" id="specItem_happy">
+                <div class="spectrum-item-top"><span>😊 Happy</span><strong id="specPct_happy">5%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_happy" style="width: 5%; background: #10b981;"></div></div>
+              </div>
+              <div class="spectrum-item" id="specItem_calm">
+                <div class="spectrum-item-top"><span>😐 Calm</span><strong id="specPct_calm">85%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_calm" style="width: 85%; background: #034f46;"></div></div>
+              </div>
+              <div class="spectrum-item" id="specItem_sad">
+                <div class="spectrum-item-top"><span>😢 Sad</span><strong id="specPct_sad">2%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_sad" style="width: 2%; background: #64748b;"></div></div>
+              </div>
+              <div class="spectrum-item" id="specItem_anxious">
+                <div class="spectrum-item-top"><span>😟 Anxious</span><strong id="specPct_anxious">3%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_anxious" style="width: 3%; background: #f59e0b;"></div></div>
+              </div>
+              <div class="spectrum-item" id="specItem_fatigued">
+                <div class="spectrum-item-top"><span>😴 Fatigued</span><strong id="specPct_fatigued">2%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_fatigued" style="width: 2%; background: #6366f1;"></div></div>
+              </div>
+              <div class="spectrum-item" id="specItem_surprised">
+                <div class="spectrum-item-top"><span>😲 Surprised</span><strong id="specPct_surprised">1%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_surprised" style="width: 1%; background: #8b5cf6;"></div></div>
+              </div>
+              <div class="spectrum-item" id="specItem_pain">
+                <div class="spectrum-item-top"><span>⚠️ Somatic Strain</span><strong id="specPct_pain">1%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_pain" style="width: 1%; background: #e11d48;"></div></div>
+              </div>
+              <div class="spectrum-item" id="specItem_confused">
+                <div class="spectrum-item-top"><span>🤔 Confused</span><strong id="specPct_confused">1%</strong></div>
+                <div class="spectrum-bar"><div class="spectrum-fill" id="specFill_confused" style="width: 1%; background: #d97706;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Parameter Clinical Biometrics Grid (6 Expanded Parameters) -->
+          <div class="affect-meters-grid" id="affectMetersGrid">
+            <div class="affect-meter">
+              <div class="affect-meter-head">
+                <span class="affect-label">Emotional Valence</span>
+                <span class="affect-val" id="valenceValText">+0.15 (Calm)</span>
+              </div>
+              <div class="affect-bar-track">
+                <div class="affect-bar-fill" id="valenceBarFill" style="width: 58%; background: var(--color-forest-ink);"></div>
+              </div>
+            </div>
+            <div class="affect-meter">
+              <div class="affect-meter-head">
+                <span class="affect-label">Arousal / Energy</span>
+                <span class="affect-val" id="arousalValText">30% (Resting)</span>
+              </div>
+              <div class="affect-bar-track">
+                <div class="affect-bar-fill" id="arousalBarFill" style="width: 30%; background: var(--color-forest-ink);"></div>
+              </div>
+            </div>
+            <div class="affect-meter">
+              <div class="affect-meter-head">
+                <span class="affect-label">Ocular Vigilance</span>
+                <span class="affect-val" id="vigilanceValText">75% (Alert)</span>
+              </div>
+              <div class="affect-bar-track">
+                <div class="affect-bar-fill" id="vigilanceBarFill" style="width: 75%; background: var(--color-forest-ink);"></div>
+              </div>
+            </div>
+            <div class="affect-meter">
+              <div class="affect-meter-head">
+                <span class="affect-label">Brow Tension</span>
+                <span class="affect-val" id="tensionValText">Relaxed (Low)</span>
+              </div>
+              <div class="affect-bar-track">
+                <div class="affect-bar-fill" id="tensionBarFill" style="width: 25%; background: var(--color-ember-glow);"></div>
+              </div>
+            </div>
+            <div class="affect-meter">
+              <div class="affect-meter-head">
+                <span class="affect-label">Smile Expressivity</span>
+                <span class="affect-val" id="smileBarText">0% (Neutral)</span>
+              </div>
+              <div class="affect-bar-track">
+                <div class="affect-bar-fill" id="smileBarFill" style="width: 0%; background: #10b981;"></div>
+              </div>
+            </div>
+            <div class="affect-meter">
+              <div class="affect-meter-head">
+                <span class="affect-label">Cognitive Strain</span>
+                <span class="affect-val" id="confusionValText">0% (Clear)</span>
+              </div>
+              <div class="affect-bar-track">
+                <div class="affect-bar-fill" id="confusionBarFill" style="width: 0%; background: #d97706;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro-Telemetry Strip (Symmetry, Head Tilt, Smile, Attention) -->
+          <div class="telemetry-micro-strip">
+            <div class="micro-stat">
+              <span class="micro-stat-label">Symmetry:</span>
+              <strong class="micro-stat-val" id="symmetryValText">95%</strong>
+            </div>
+            <div class="micro-stat">
+              <span class="micro-stat-label">Head Tilt:</span>
+              <strong class="micro-stat-val" id="headTiltValText">0.0°</strong>
+            </div>
+            <div class="micro-stat">
+              <span class="micro-stat-label">Smile Score:</span>
+              <strong class="micro-stat-val" id="smileValText">0%</strong>
+            </div>
+            <div class="micro-stat">
+              <span class="micro-stat-label">Visual Engagement:</span>
+              <strong class="micro-stat-val" id="attentionValText">90%</strong>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Live Audio Waveform Card -->
+        <div class="glass-card monitor-card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+              Live Audio Monitoring (Real-Time Sound Wave)
+            </div>
+            <span class="status-pill status-ready" id="audioMonitorStatus">Audio Ready</span>
+          </div>
+
+          <div class="audio-monitor-box">
+            <canvas id="audioVisualizerCanvas"></canvas>
+            <div class="audio-shutter-curtain" id="audioShutterCurtain">
+              <span>🔇 AUDIO GATED BY PRIVACY SHUTTER</span>
+            </div>
+          </div>
+
+          <div class="audio-stats-row">
+            <div class="audio-stat">
+              <span class="audio-stat-label">Ambient Sound Level:</span>
+              <div class="audio-bar-wrapper">
+                <div class="audio-bar-fill" id="audioBarFill" style="width: 12%;"></div>
+              </div>
+              <span class="audio-db" id="audioDbText">38 dB (Quiet)</span>
+            </div>
+            <div class="audio-stat">
+              <span class="audio-stat-label">Speech Activity:</span>
+              <strong id="speechActivityLabel">Listening...</strong>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Column 2: The Dark Velvet Room (Vast Ink Chamber) -->
+      <section class="dash-col col-secondary">
+
+        <!-- Voice & Conversational Companion Card in Dark Velvet Chamber -->
+        <div class="glass-card voice-card dark-velvet-chamber">
+          <div class="card-header" style="justify-content: space-between; align-items: center; gap: 12px;">
+            <div class="card-title" style="white-space: nowrap; font-size: 24px; gap: 10px; flex-shrink: 0;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              <span>Conversational Cognition</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <span class="status-pill status-ready" id="voiceStatusPill">Standby</span>
+            </div>
+          </div>
+
+          <div class="voice-centerpiece">
+            <div class="mic-orb" id="micOrb" onclick="handleOrbClick()">
+              <svg class="mic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" x2="12" y1="19" y2="22"/>
+              </svg>
+            </div>
+            <div class="mic-instruction" id="micInstruction">Click to speak directly to CareWatcher via Laptop Mic</div>
+
+            <!-- Continuous Hands-Free Dialogue Banner -->
+            <div class="continuous-dialogue-banner hidden" id="continuousDialogueBanner">
+              <span class="live-dot pulse" id="continuousPulseDot"></span>
+              <span class="dialogue-banner-text" id="continuousBannerText">Continuous Dialogue Active — Listening to Aaron</span>
+              <span class="dialogue-banner-sub" id="continuousBannerSub">Real-Time Situational Evaluation</span>
+            </div>
+
+            <!-- Real-time Audio Level & VU Visualizer -->
+            <div class="audio-vu-wrap" id="audioVUWrap">
+              <canvas id="audioVUCanvas" width="280" height="28" class="audio-vu-canvas"></canvas>
+              <div class="audio-vu-status" id="audioVUStatus">Mic Input: Standby</div>
+            </div>
+
+            <!-- Real-time Live Speech Feedback Banner -->
+            <div class="live-speech-feedback" id="liveSpeechFeedback"></div>
+
+            <div class="wake-hint" id="wakeHintText">
+              Auto-listens continuously after each reply • Real-time situational evaluation with Gemini
+            </div>
+
+            <!-- Alternative Mic Action Group -->
+            <div class="mic-action-group">
+              <button class="btn btn-primary btn-sm btn-continuous" id="btnToggleContinuous" onclick="toggleContinuousConversationButton()">
+                <span class="btn-dot" id="btnContinuousDot"></span>
+                <span id="btnContinuousLabel">🎙️ Start Continuous Dialogue</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btnHardwareMic" onclick="recordDirectHardwareMic()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                </svg>
+                Record via Hardware Mic (Whisper Local)
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="openAudioDiagnostics()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 16v-4"/>
+                  <path d="M12 8h.01"/>
+                </svg>
+                Audio Diagnostics
+              </button>
+            </div>
+          </div>
+
+          <div class="voice-options">
+            <label class="switch-container">
+              <input type="checkbox" id="voiceOutput" checked>
+              <span class="switch-slider"></span>
+              <span class="switch-text">Spoken Audio Responses (Text-to-Speech)</span>
+            </label>
+            <label class="switch-container highlight-switch" id="continuousSwitchWrap">
+              <input type="checkbox" id="continuousConvToggle" onchange="setContinuousConversation(this.checked)">
+              <span class="switch-slider"></span>
+              <span class="switch-text"><strong>Continuous Hands-Free Dialogue</strong> (Auto-listens after every reply)</span>
+            </label>
+            <label class="switch-container">
+              <input type="checkbox" id="continuousWakeToggle" onchange="toggleContinuousWake(this.checked)">
+              <span class="switch-slider"></span>
+              <span class="switch-text">Ambient Wake Word Trigger ("Hey Care" / "Hey Aaron")</span>
+            </label>
+          </div>
+
+          <!-- Mic Diagnostics Modal / Drawer -->
+          <div class="diag-drawer" id="diagDrawer" style="display: none;">
+            <div class="diag-header">
+              <h4 style="margin:0; font-family: 'EB Garamond', serif; font-size: 20px;">Audio & Hardware Mic Diagnostics</h4>
+              <button class="chip" onclick="closeAudioDiagnostics()" style="padding: 2px 8px;">✕ Close</button>
+            </div>
+            <div class="diag-body" id="diagBody">
+              <p>Scanning input endpoints...</p>
+            </div>
+          </div>
+
+          <!-- Wispr Flow Speech Pattern & Multimodal Affect Engine HUD -->
+          <div class="speech-affect-hud" id="speechAffectHud">
+            <div class="affect-hud-header">
+              <div class="affect-hud-title">
+                <span class="hud-pulse-ring"></span>
+                <span>Speech Pattern & Multimodal Affect Engine</span>
+              </div>
+              <span class="hud-congruence-badge badge-equilibrium" id="hudCongruenceBadge">Harmonious Equilibrium</span>
+            </div>
+
+            <div class="affect-telemetry-grid">
+              <div class="affect-telemetry-tile">
+                <span class="affect-tile-label">Vocal Affect</span>
+                <strong class="affect-tile-val" id="hudVocalEmotionVal">Calm Baseline</strong>
+                <div class="affect-tile-sub" id="hudEmotionConfidence">Confidence 92%</div>
+              </div>
+              <div class="affect-telemetry-tile">
+                <span class="affect-tile-label">Speech Cadence</span>
+                <strong class="affect-tile-val" id="hudSpeechCadenceVal">125 WPM</strong>
+                <div class="affect-tile-sub" id="hudCadenceSub">Conversational Baseline</div>
+              </div>
+              <div class="affect-telemetry-tile">
+                <span class="affect-tile-label">Acoustic Dynamics</span>
+                <strong class="affect-tile-val" id="hudAcousticDynamicsVal">Balanced (0.50)</strong>
+                <div class="affect-tile-sub" id="hudPitchSub">Pitch Variance • Steady Energy</div>
+              </div>
+              <div class="affect-telemetry-tile">
+                <span class="affect-tile-label">Clinical Stability</span>
+                <strong class="affect-tile-val" id="hudStabilityVal">95%</strong>
+                <div class="affect-tile-sub" id="hudStabilitySub">Optimal Equilibrium</div>
+              </div>
+            </div>
+
+            <div class="affect-clinical-note-strip" id="hudClinicalNoteStrip">
+              <span class="affect-note-icon">🩺</span>
+              <span class="affect-note-text" id="hudClinicalNoteText">Multimodal affect active: Continuously evaluating vocal prosody, facial FACS mood, and cardiac vitals for Aaron.</span>
+            </div>
+          </div>
+
+          <div class="input-form">
+            <input type="text" id="userInput" placeholder="Speak or type to CareWatcher..." autocomplete="off">
+            <button id="submitBtn" onclick="processInput()">
+              <span>Send</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Live Conversation History Stream -->
+          <div class="conversation-feed" id="chatStream">
+            <div class="feed-bubble system">
+              <div class="bubble-meta">SYSTEM ORCHESTRATOR</div>
+              <div class="bubble-body">System booted. Hardware Privacy Shutter is <span id="initialShutterState">CLOSED</span>. Data streams are gated at the root boundary.</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Column 3: Live Sensor Telemetry, Vitals & Memory (Cream Broadsheet Cards) -->
+      <section class="dash-col col-tertiary">
+
+        <!-- Real-Time Biological Telemetry Card -->
+        <div class="glass-card telemetry-card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+              Biological Vitals
+            </div>
+            <span class="source-tag" id="sensorDriverBadge">Live Stream</span>
+          </div>
+
+          <div class="vitals-grid">
+            <!-- Heart Rate & Real-Time Live Beat (HypeRate Exclusive) -->
+            <div class="vital-tile vital-bpm">
+              <div class="vital-top">
+                <span class="vital-name">Heart Rate (HypeRate Live)</span>
+                <div class="pulse-indicator" id="cardiacHeartIcon"></div>
+              </div>
+              <div class="vital-val-row">
+                <span class="vital-number" id="valBPM">--</span>
+                <span class="vital-unit">bpm</span>
+              </div>
+
+              <!-- Continuous Sweeping ECG / PPG Cardiac Waveform -->
+              <div class="live-beat-wrap">
+                <canvas id="liveBeatCanvas" width="230" height="38" class="live-beat-canvas"></canvas>
+                <div class="beat-sub-meta">
+                  <span id="beatIntervalText">Rhythm: Awaiting live beat</span>
+                  <label class="beat-sound-label" title="Play subtle clinical cardiac tone on each contraction">
+                    <input type="checkbox" id="beatAudioCheckbox">
+                    <span>Sound</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="vital-meta" id="bpmSourceMeta">Source: HypeRate Live Stream (Apple Watch 034A7)</div>
+            </div>
+
+            <!-- Blood Oxygen (SpO2) -->
+            <div class="vital-tile vital-spo2">
+              <div class="vital-top">
+                <span class="vital-name">Blood Oxygen</span>
+                <span class="vital-pill normal" id="spo2Status">Normal</span>
+              </div>
+              <div class="vital-val-row">
+                <span class="vital-number" id="valSpO2">98.5</span>
+                <span class="vital-unit">%</span>
+              </div>
+              <div class="vital-meta" id="spo2SourceMeta">Safe threshold: &gt; 92.0%</div>
+            </div>
+
+            <!-- Body / Wrist Temperature -->
+            <div class="vital-tile vital-temp">
+              <div class="vital-top">
+                <span class="vital-name">Temperature</span>
+                <span class="vital-pill normal" id="tempStatus">Optimal</span>
+              </div>
+              <div class="vital-val-row">
+                <span class="vital-number" id="valTemp">36.6</span>
+                <span class="vital-unit">°C</span>
+              </div>
+              <div class="vital-meta" id="tempSourceMeta">Source: Infrared / Wrist Sensor</div>
+            </div>
+
+            <!-- Heart Rate Variability (HRV) -->
+            <div class="vital-tile vital-hrv">
+              <div class="vital-top">
+                <span class="vital-name">HRV (SDNN)</span>
+                <span class="vital-pill normal" id="hrvStatus">Good</span>
+              </div>
+              <div class="vital-val-row">
+                <span class="vital-number" id="valHRV">46.5</span>
+                <span class="vital-unit">ms</span>
+              </div>
+              <div class="vital-meta" id="hrvSourceMeta">Source: Autonomic Balance</div>
+            </div>
+
+            <!-- Daily Activity / Steps -->
+            <div class="vital-tile vital-motion">
+              <div class="vital-top">
+                <span class="vital-name">Daily Steps</span>
+                <span class="vital-pill active" id="presenceStatus">Active</span>
+              </div>
+              <div class="vital-val-row">
+                <span class="vital-number" id="valSteps">5,420</span>
+                <span class="vital-unit">steps</span>
+              </div>
+              <div class="vital-meta" id="activitySourceMeta">Source: Apple Watch Pedometer</div>
+            </div>
+
+            <!-- Presence & Motion State -->
+            <div class="vital-tile vital-motion">
+              <div class="vital-top">
+                <span class="vital-name">Room Presence</span>
+                <span class="vital-pill active" id="roomStatus">Detected</span>
+              </div>
+              <div class="vital-val-row">
+                <span class="vital-number" id="valActivity">Active</span>
+                <span class="vital-unit">Room</span>
+              </div>
+              <div class="vital-meta">Source: Webcam + Radar</div>
+            </div>
+          </div>
+
+          <!-- HypeRate.io Live Stream Integration Card (Collapsible Menu) -->
+          <div class="hyperate-stream-box collapsible-stream-box" id="hyperateBox">
+            <div class="hyperate-header collapsible-header" onclick="toggleStreamCollapse('hyperateBox')" title="Click to collapse / expand">
+              <div class="hyperate-title" style="white-space: nowrap;">
+                <span class="live-dot" id="hyperateLiveDot"></span>
+                <span>HypeRate Live Apple Watch Stream</span>
+              </div>
+              <div class="collapse-header-right">
+                <span class="collapse-toggle-icon">▼</span>
+              </div>
+            </div>
+            
+            <div class="hyperate-body collapse-body">
+              <span class="aw-label">Apple Watch Browser Source URL:</span>
+              <div class="aw-input-group">
+                <input type="text" id="hyperateUrlInput" value="https://app.hyperate.io/animation/79/034A7" class="aw-input" placeholder="https://app.hyperate.io/animation/79/034A7">
+                <button class="btn btn-secondary btn-sm" id="btnHyperateConnect" onclick="connectCustomHyperate()">Sync Live</button>
+              </div>
+              <div class="hyperate-meta-row">
+                <span id="hyperateLiveMeta">Channel: <strong>034A7</strong> • Protocol: <strong>Phoenix WebSocket</strong> • Latency: <strong>&lt; 35ms</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Apple Watch Integration Drawer (Collapsible Menu) -->
+          <div class="apple-watch-box collapsible-stream-box collapsed" id="appleWatchBox">
+            <div class="aw-header collapsible-header" onclick="toggleStreamCollapse('appleWatchBox')" title="Click to collapse / expand">
+              <div class="aw-title" style="white-space: nowrap;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <rect x="6" y="4" width="12" height="16" rx="4"/>
+                  <path d="M10 2h4"/>
+                  <path d="M10 22h4"/>
+                </svg>
+                <span>Apple Watch Live Stream</span>
+              </div>
+              <div class="collapse-header-right">
+                <span class="collapse-toggle-icon">▼</span>
+              </div>
+            </div>
+
+            <div class="aw-body collapse-body">
+              <div class="aw-url-wrap">
+                <span class="aw-label">iPhone / Health Auto Export Webhook URL:</span>
+                <div class="aw-input-group">
+                  <input type="text" id="awWebhookUrl" readonly value="http://192.168.29.138:8000/api/sensor/apple_watch" class="aw-input">
+                  <button class="btn btn-secondary btn-sm" onclick="copyAppleWatchUrl()">Copy URL</button>
+                </div>
+              </div>
+
+              <div class="aw-actions">
+                <button class="btn btn-secondary btn-sm" onclick="simulateAppleWatchSync()">
+                  ⚡ Test Ingestion with Live Apple Watch Data
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="toggleAppleWatchHelp()">
+                  📖 How to Set Up in 1 Minute
+                </button>
+              </div>
+
+              <div class="aw-help" id="awHelp" style="display: none;">
+                <ol style="margin: 8px 0 0 16px; padding: 0; font-size: 12px; line-height: 1.7; color: var(--color-fog);">
+                  <li>Download <strong>Health Auto Export</strong> from the iPhone App Store.</li>
+                  <li>Go to <strong>Export Automation / REST API</strong>.</li>
+                  <li>Paste URL: <code style="color: var(--color-lavender-whisper);">http://192.168.29.138:8000/api/sensor/apple_watch</code></li>
+                  <li>Select metrics: <em>Heart Rate, Blood Oxygen, Wrist Temp, Steps, HRV</em>.</li>
+                  <li>Select Cadence: <strong>Every 5 minutes (Background Sync)</strong>.</li>
+                  <li>Done! CareWatcher will automatically ingest and graph your real biometrics.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!-- Next Page Navigation Transition Card -->
+          <div class="glass-card page-transition-card" onclick="switchToView('audit')">
+            <div class="transition-card-content">
+              <div class="transition-card-badge">
+                <span class="pulse-dot-amber"></span>
+                <span>CRYPTOGRAPHIC VAULT & CLINICAL MEMORY</span>
+              </div>
+              <h3 class="transition-card-title">Mood Baseline & Audit Ledger</h3>
+              <p class="transition-card-desc">
+                Review Aaron's historical emotional equilibrium trajectories and the append-only SHA-256 tamper-evident security audit chain on the next page.
+              </p>
+              <button class="btn btn-primary btn-transition-cta" onclick="switchToView('audit'); event.stopPropagation();">
+                <span>Go to Mood & Audit Page</span>
+                <span class="btn-arrow-icon">→</span>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- View 2: Mood Baseline & Cryptographic Audit Ledger Page -->
+      <section class="audit-page-view dash-view" id="viewAudit" style="display: none;">
+        <div class="audit-page-header">
+          <button class="btn btn-secondary btn-return-companion" onclick="switchToView('companion')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+            <span>← Return to Companion Dashboard</span>
+          </button>
+          <div class="audit-page-title-box">
+            <div class="audit-page-eyebrow">
+              <span class="audit-pill-badge">SECURE DATA VAULT</span>
+              <span>RESIDENT: AARON</span>
+            </div>
+            <h2 class="audit-page-title">Mood Baseline & Cryptographic Audit Ledger</h2>
+            <p class="audit-page-desc">
+              Continuous affective telemetry, longitudinal emotion classifications, and local SHA-256 hash-chained block records verified on-device.
+            </p>
+          </div>
+        </div>
+
+        <div class="audit-page-grid">
+          <!-- Mood History & Memory Card -->
+          <div class="glass-card mood-card audit-full-card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
+                Mood Baseline & Memory
+              </div>
+              <span class="mood-badge" id="moodStatusBadge">Neutral / Calm</span>
+            </div>
+
+            <div class="mood-timeline" id="moodTimeline">
+              <div class="mood-entry">
+                <span class="mood-dot dot-positive"></span>
+                <div class="mood-info">
+                  <strong>Current State: Attentive</strong>
+                  <span>Updated from live conversational dialogue</span>
+                </div>
+                <span class="mood-time">Live</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cryptographic Audit Ledger Card -->
+          <div class="glass-card audit-card audit-full-card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
+                </svg>
+                Audit Ledger
+              </div>
+              <div class="audit-chain-badge" id="auditChainBadge">CHAIN VERIFIED ✓</div>
+            </div>
+
+            <div class="audit-meta-row">
+              <span>Local File: <code class="code-tag">data/audit.jsonl</code></span>
+              <span id="auditCount">0 blocks</span>
+            </div>
+
+            <div class="audit-stream" id="auditStream">
+              <div class="audit-item">
+                <div class="audit-head">
+                  <span class="audit-type">system_boot</span>
+                  <span class="audit-time">Just now</span>
+                </div>
+                <div class="audit-hash">HASH: <span class="hash-str">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="audit-page-bottom-action">
+          <button class="btn btn-primary btn-lg" onclick="switchToView('companion')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+            <span>Back to Live Companion Dashboard</span>
+          </button>
+        </div>
+      </section>
+
+    <!-- AI Model & Gemini Configuration Modal -->
+    <div class="modal-backdrop" id="aiModelModal" style="display: none;" onclick="handleModalBackdropClick(event)">
+      <div class="modal-dialog" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <div class="modal-icon">🤖</div>
+            <div>
+              <h3 class="modal-title">Conversational AI Engine</h3>
+              <p class="modal-sub">Powered by Google Gemini with real-time biometric vitals awareness</p>
+            </div>
+          </div>
+          <button class="modal-close-btn" onclick="closeModelSettingsModal()">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Status Banner -->
+          <div class="model-status-card" id="modelStatusCard">
+            <div class="status-card-icon" id="statusCardIcon">⚡</div>
+            <div class="status-card-text">
+              <strong id="statusCardTitle">Gemini 2.0 Flash Initialized</strong>
+              <div id="statusCardDesc">Empathetic health companion active with live Apple Watch BPM & affect stream.</div>
+            </div>
+          </div>
+
+          <!-- Step-by-Step Instructions -->
+          <div class="setup-guide-box">
+            <div class="setup-guide-header">
+              <span>🔑 How to get your 100% Free Gemini API Key (15 seconds):</span>
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="guide-link-btn">
+                Open Google AI Studio ↗
+              </a>
+            </div>
+            <ol class="setup-steps">
+              <li>Open <strong><a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/app/apikey</a></strong> in your browser.</li>
+              <li>Sign in with your Google account and click <strong>"Create API key"</strong>.</li>
+              <li>Copy the key (starts with <code>AIzaSy...</code>) and paste it below.</li>
+            </ol>
+            <div class="setup-note">
+              <em>Note: The Google Gemini free tier offers 15 requests per minute and 1 million tokens per minute with no credit card required.</em>
+            </div>
+          </div>
+
+          <!-- Form: Model selection & Key input -->
+          <div class="form-group">
+            <label class="form-label" for="geminiModelSelect">Selected Model:</label>
+            <select id="geminiModelSelect" class="form-select">
+              <option value="gemini-3.5-flash" selected>Gemini 3.5 Flash (Recommended — fastest, high empathy & reasoning)</option>
+              <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite (Ultra-fast real-time speech)</option>
+              <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="geminiApiKeyInput">
+              Google Gemini API Key:
+              <span class="label-aside" id="keyPreviewAside"></span>
+            </label>
+            <div class="input-with-action">
+              <input type="password" id="geminiApiKeyInput" class="form-input" placeholder="Paste AIzaSy... here" autocomplete="off">
+              <button class="btn btn-secondary btn-sm" type="button" id="keyToggleBtn" onclick="toggleKeyVisibility()">Show</button>
+            </div>
+          </div>
+
+          <!-- Test Response Preview -->
+          <div class="test-preview-box" id="testPreviewBox" style="display: none;">
+            <div class="test-preview-title">Model Response:</div>
+            <div class="test-preview-content" id="testPreviewContent"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="testGeminiConnection()" id="testGeminiBtn">
+            ⚡ Test Conversation
+          </button>
+          <div style="flex:1;"></div>
+          <button class="btn btn-secondary" onclick="closeModelSettingsModal()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveGeminiConfig()" id="saveGeminiBtn">
+            Save & Connect
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

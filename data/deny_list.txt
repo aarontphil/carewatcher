@@ -1,0 +1,73 @@
+# CareWatcher — Clinical Term Deny List
+# Lines starting with # are comments.
+# The verifier rejects any intervention message containing these terms.
+# CareWatcher is a wellness companion, NOT a medical device.
+
+# ── Diagnostic terms ──
+diagnose
+diagnosis
+diagnosed
+prognosis
+differential diagnosis
+
+# ── Prescriptive terms ──
+prescribe
+prescription
+prescribed
+take this drug
+increase your dose
+decrease your dose
+change your dose
+stop taking
+discontinue
+administer
+
+# ── Disease / condition names (should not appear in wellness messages) ──
+disease
+disorder
+syndrome
+cancer
+tumor
+tumour
+heart attack
+myocardial infarction
+stroke
+cerebrovascular
+diabetes mellitus
+hypertension stage
+renal failure
+liver failure
+sepsis
+pneumonia
+
+# ── Clinical procedures ──
+surgery
+operation
+biopsy
+blood test
+lab results
+x-ray
+mri scan
+ct scan
+ultrasound
+chemotherapy
+radiation therapy
+dialysis
+intubation
+catheter
+
+# ── Clinical language ──
+you have
+you are suffering
+you are experiencing symptoms of
+terminal
+malignant
+benign
+metastasis
+chronic condition
+acute episode
+clinical trial
+dosage adjustment
+contraindicated
+side effects include
+adverse reaction
